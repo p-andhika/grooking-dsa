@@ -14,22 +14,25 @@ class Queue {
 
   // Add an element to the rear (back) of the queue
   enqueue(data) {
-    let newNode = new Node(data);
-    if (this.rear === null) {
+    const newNode = new Node(data);
+
+    if (this.front === null) {
       this.front = this.rear = newNode;
     } else {
       this.rear.next = newNode;
-      this.rear = newNode;
+      this.rear = newNode
     }
+
     this.size++;
   }
 
-  dequeue() {
+  // Remove an element from the front of the queue
+  dequeu() {
     if (this.front === null) {
-      return null
+      return null;
     }
 
-    let temp = this.front;
+    const temp = this.front;
     this.front = this.front.next;
 
     if (this.front === null) {
@@ -40,32 +43,43 @@ class Queue {
     return temp.data;
   }
 
+  // Get the front element of the queue
   peek() {
     if (this.front === null) {
-      return null
+      return null;
     }
 
     return this.front.data;
   }
 
+  // Check if the queue is empty
   isEmpty() {
     return this.size === 0;
   }
 
+  // Get the number of elements in the queue
   getSize() {
-    return this.size;
+      return this.size;
   }
-
 }
 
 const queue = new Queue();
+console.log("🚀 ~ queue:", queue, '\n');
 
-queue.enqueue(1);
-queue.enqueue(2);
-queue.enqueue(3);
 
-console.dir(queue, {depth: null});
-console.log('dequeue ==> ',queue.dequeue());
-console.log(queue.peek());
-console.log(queue.getSize());
-console.dir(queue, {depth: null});
+queue.enqueue('front');
+console.log("🚀 ~ queue:", queue, '\n');
+
+queue.enqueue('mid');
+console.log("🚀 ~ queue:", queue, '\n');
+
+queue.enqueue('rear');
+console.log("🚀 ~ queue:", queue, '\n');
+
+const dequeu = queue.dequeu();
+console.log("🚀 ~ dequeu:", dequeu, '\n');
+console.log("🚀 ~ dequeu:", queue, '\n');
+
+const peek = queue.peek();
+console.log("🚀 ~ peek:", peek, '\n');
+console.log("🚀 ~ dequeu:", queue, '\n');
