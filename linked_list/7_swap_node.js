@@ -19,6 +19,7 @@ class Node {
 class Solution {
   swapPairs(head) {
     let dummy = new Node(0);
+    dummy.next = head;
     let previous = dummy;
 
     while (head && head.next) {

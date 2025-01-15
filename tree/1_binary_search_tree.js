@@ -8,22 +8,43 @@ class Node {
 
 class BST {
   constructor() {
-    this.root = null
+    this.root = null;
   }
 
-  inOrderHelper(p) {
-  }
+  inOrderHelper(p) {}
 
-  preOrderHelper(p) {
-  }
-
-  postOrderHelper(p) {
-  }
-
+  preOrderHelper(p) {}
+  postOrderHelper(p) {}
   findMin(node) {
+    if (node.left == null) {
+      return node;
+    }
+
+    return this.findMin(node.left);
   }
 
-  deleteNode(root, node) {
+  deleteNode(root, value) {
+    if (root == null) {
+      return root;
+    }
+
+    if (value < root.value) {
+      root.left = this.deleteNode(root.left, value);
+    } else if (value > root.value) {
+      root.right = this.deleteNode(root.right, value);
+    } else {
+      if (root.left == null) {
+        return root.right;
+      } else if (root.right == null) {
+        return root.left;
+      }
+
+      const temp = this.findMin(root.right);
+      root.value = temp.value;
+      root.right = this.deleteNode(root.right, temp.value);
+    }
+
+    return root;
   }
 
   insert(value) {
@@ -53,20 +74,15 @@ class BST {
     }
   }
 
-  deleteMethod(node) {
+  deleteMethod(value) {
+    this.root = this.deleteNode(this.root, value);
   }
+  search(node) {}
+  inOrder() {}
 
-  search(node) {
-  }
+  preOrder() {}
 
-  inOrder() {
-  }
-
-  preOrder() {
-  }
-
-  postOrder() {
-  }
+  postOrder() {}
 }
 
 const bst = new BST();
@@ -82,4 +98,7 @@ bst.insert(7);
 console.log(bst);
 
 bst.insert(8);
-console.dir(bst, {depth: null});
+console.dir(bst, { depth: null });
+
+bst.deleteMethod(8);
+console.dir(bst, { depth: null });
