@@ -14,7 +14,9 @@ class BST {
   inOrderHelper(p) {}
 
   preOrderHelper(p) {}
+
   postOrderHelper(p) {}
+
   findMin(node) {
     if (node.left == null) {
       return node;
@@ -37,11 +39,11 @@ class BST {
         return root.right;
       } else if (root.right == null) {
         return root.left;
+      } else {
+        const temp = this.findMin(root.right);
+        root.value = temp.value;
+        root.right = this.deleteNode(root.right, temp.value);
       }
-
-      const temp = this.findMin(root.right);
-      root.value = temp.value;
-      root.right = this.deleteNode(root.right, temp.value);
     }
 
     return root;
@@ -77,7 +79,22 @@ class BST {
   deleteMethod(value) {
     this.root = this.deleteNode(this.root, value);
   }
-  search(node) {}
+  search(value) {
+    let current = this.root;
+
+    while (current != null) {
+      if (value < current.value) {
+        current = current.left;
+      } else if (value > current.value) {
+        current = current.right;
+      } else {
+        return true;
+      }
+    }
+
+    return false;
+  }
+
   inOrder() {}
 
   preOrder() {}
@@ -102,3 +119,5 @@ console.dir(bst, { depth: null });
 
 bst.deleteMethod(8);
 console.dir(bst, { depth: null });
+
+console.log(bst.search(7));
