@@ -26,9 +26,7 @@ class BST {
   }
 
   deleteNode(root, value) {
-    if (root == null) {
-      return root;
-    }
+    if (root == null) return root;
 
     if (value < root.value) {
       root.left = this.deleteNode(root.left, value);
@@ -39,11 +37,11 @@ class BST {
         return root.right;
       } else if (root.right == null) {
         return root.left;
-      } else {
-        const temp = this.findMin(root.right);
-        root.value = temp.value;
-        root.right = this.deleteNode(root.right, temp.value);
       }
+
+      const temp = this.findMin(root.left);
+      root.value = temp.value;
+      root.right = this.deleteNode(root.right, temp.value);
     }
 
     return root;
@@ -58,7 +56,7 @@ class BST {
       let current = this.root;
       let parent = null;
 
-      while (current != null) {
+      while (current !== null) {
         parent = current;
 
         if (value < current.value) {
@@ -83,12 +81,12 @@ class BST {
     let current = this.root;
 
     while (current != null) {
+      if (value == current.value) return true;
+
       if (value < current.value) {
         current = current.left;
-      } else if (value > current.value) {
-        current = current.right;
       } else {
-        return true;
+        current = current.right;
       }
     }
 
