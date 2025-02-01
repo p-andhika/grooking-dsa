@@ -18,20 +18,40 @@ class Solution {
   frequencySort(s) {
     let result = "";
 
-    // Build the frequency map
-    const freqMap = {};
+    //// Build the frequency map
+    //const freqMap = {};
+    //for (const c of s) {
+    //  freqMap[c] = (freqMap[c] || 0) + 1;
+    //}
+    //
+    //// Create an array and sort it based on the frequenc
+    //const sortedChars = Object.keys(freqMap).sort(
+    //  (a, b) => freqMap[b] - freqMap[a],
+    //);
+    //
+    //// construct the result string
+    //for (const char of sortedChars) {
+    //  result += char.repeat(freqMap[char]);
+    //}
+
+    // alternative method
+    const freqMap = new Map();
     for (const c of s) {
-      freqMap[c] = (freqMap[c] || 0) + 1;
+      freqMap.set(c, (freqMap.get(c) || 0) + 1);
     }
 
-    // Create an array and sort it based on the frequenc
-    const sortedChars = Object.keys(freqMap).sort(
-      (a, b) => freqMap[b] - freqMap[a],
-    );
+    const maxFreq = Math.max(...freqMap.values());
 
-    // construct the result string
-    for (const char of sortedChars) {
-      result += char.repeat(freqMap[char]);
+    const buckets = Array.from({ length: maxFreq + 1 }, () => []);
+
+    for (const [char, freq] of freqMap.entries()) {
+      buckets[freq].push(char);
+    }
+
+    for (let i = buckets.length - 1; i >= 1; i--) {
+      for (const char of buckets[i]) {
+        result += char.repeat(i);
+      }
     }
 
     return result;
