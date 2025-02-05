@@ -36,8 +36,6 @@ class Solution {
       graph[edge[1]].push(edge[0]); // because it's an undirected graph
     }
 
-    console.log(graph);
-
     this.visited = Array(n).fill(false);
 
     return this.dfs(graph, start, end);
@@ -72,25 +70,25 @@ console.log(
     3,
   ),
 ); // true
-//console.log(
-//  sol.validPath(
-//    4,
-//    [
-//      [0, 1],
-//      [2, 3],
-//    ],
-//    0,
-//    3,
-//  ),
-//); // false
-//console.log(
-//  sol.validPath(
-//    5,
-//    [
-//      [0, 1],
-//      [3, 4],
-//    ],
-//    0,
-//    4,
-//  ),
-//); // false
+onsole.log(
+  sol.validPath(
+    4,
+    [
+      [0, 1],
+      [2, 3],
+    ],
+    0,
+    3,
+  ),
+); // false
+console.log(
+  sol.validPath(
+    5,
+    [
+      [0, 1],
+      [3, 4],
+    ],
+    0,
+    4,
+  ),
+); // false
