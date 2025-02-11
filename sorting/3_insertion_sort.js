@@ -1,6 +1,6 @@
 class Solution {
   insertionSort(arr) {
-    for (let i = 1; i < arr.length; i++) {
+    for (let i = 1; i < arr.length - 1; i++) {
       const key = arr[i];
       let j = i - 1;
 
