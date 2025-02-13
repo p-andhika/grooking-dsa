@@ -35,7 +35,9 @@ class Solution {
 
     // count each vowel's freq
     for (const c of s) {
-      freqMap[c] = (freqMap[c] || 0) + 1
+      if (this.isVowel(c)) {
+        freqMap[c] = (freqMap[c] || 0) + 1
+      }
     }
 
     // pre-defined sorted order of vowels based on ASCII values
@@ -50,7 +52,6 @@ class Solution {
       } else {
         // move to the next vowel with remaining count
         while (index < sortedVowelOrder.length && (freqMap[sortedVowelOrder[index]] || 0) === 0) {
-
           index++;
         }
 
