@@ -37,32 +37,28 @@ class Solution {
 
   // or
 
-  maximumCount(nums) {
+  binarySearch(nums, target) {
     let start = 0,
-      end = nums.length - 1;
-    let firstNonNegativeIndex = nums.length; //default
+      end = nums.length;
 
-    while (start <= end) {
+    while (start < end) {
       const mid = Math.floor((start + end) / 2);
 
-      if (nums[mid] < 0) {
-        start = mid + 1; // move right to find the first non-negative
+      if (nums[mid] < target) {
+        start = mid + 1;
       } else {
-        firstNonNegativeIndex = mid; // found a non-negative
-        end = mid - 1;
+        end = mid;
       }
     }
 
-    // negative count is all elements before the first non-negative
-    let negativeCount = firstNonNegativeIndex;
+    return start;
+  }
 
-    // positive count is the remaining elements in the array after the first non-negative
-    let positiveCount =
-      nums.length -
-      firstNonNegativeIndex -
-      (nums[firstNonNegativeIndex] == 0 ? 1 : 0);
+  maximumCount(nums) {
+    let firstNonNegative = this.binarySearch(nums, 0);
+    let firstPositive = this.binarySearch(nums, 1);
 
-    return Math.max(negativeCount, positiveCount);
+    return Math.max(firstNonNegative, nums.length - firstPositive);
   }
 }
 
