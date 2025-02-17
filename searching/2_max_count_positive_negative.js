@@ -1,38 +1,68 @@
 class Solution {
+  //maximumCount(nums) {
+  //  let start = 0;
+  //  let end = nums.length - 1;
+  //
+  //  // hold the count
+  //  let maxNegatives = 0;
+  //  let maxPositive = 0;
+  //
+  //  // find the total of negative numbers
+  //  while (start <= end) {
+  //    let mid = start + Math.floor((end - start) / 2);
+  //    if (nums[mid] < 0) {
+  //      maxNegatives = mid + 1; // update count of negatives
+  //      start = mid + 1; // move to the right
+  //    } else {
+  //      end = mid - 1; // continue searching in the left half
+  //    }
+  //  }
+  //
+  //  start = 0;
+  //  end = nums.length - 1;
+  //
+  //  // find the total of positive numbers
+  //  while (start <= end) {
+  //    let mid = start + Math.floor((end - start) / 2);
+  //    if (nums[mid] > 0) {
+  //      maxPositive = nums.length - mid; // update count of positives
+  //      end = mid - 1; // continue searching in the left half
+  //    } else {
+  //      start = mid + 1; // move to the right
+  //    }
+  //  }
+  //
+  //  return Math.max(maxNegatives, maxPositive);
+  //}
+
+  // or
+
   maximumCount(nums) {
-    let start = 0;
-    let end = nums.length - 1;
+    let start = 0,
+      end = nums.length - 1;
+    let firstNonNegativeIndex = nums.length; //default
 
-    // hold the count
-    let maxNegatives = 0;
-    let maxPositive = 0;
-
-    // find the total of negative numbers
     while (start <= end) {
-      let mid = start + Math.floor((end - start) / 2);
+      const mid = Math.floor((start + end) / 2);
+
       if (nums[mid] < 0) {
-        maxNegatives = mid + 1; // update count of negatives
-        start = mid + 1; // move to the right
+        start = mid + 1; // move right to find the first non-negative
       } else {
-        end = mid - 1; // continue searching in the left half
+        firstNonNegativeIndex = mid; // found a non-negative
+        end = mid - 1;
       }
     }
 
-    start = 0;
-    end = nums.length - 1;
+    // negative count is all elements before the first non-negative
+    let negativeCount = firstNonNegativeIndex;
 
-    // find the total of positive numbers
-    while (start <= end) {
-      let mid = start + Math.floor((end - start) / 2);
-      if (nums[mid] > 0) {
-        maxPositive = nums.length - mid; // update count of positives
-        end = mid - 1; // continue searching in the left half
-      } else {
-        start = mid + 1; // move to the right
-      }
-    }
+    // positive count is the remaining elements in the array after the first non-negative
+    let positiveCount =
+      nums.length -
+      firstNonNegativeIndex -
+      (nums[firstNonNegativeIndex] == 0 ? 1 : 0);
 
-    return Math.max(maxNegatives, maxPositive);
+    return Math.max(negativeCount, positiveCount);
   }
 }
 
